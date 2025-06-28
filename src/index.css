@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: 'Caveat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
     min-height: 100vh;
@@ -17,6 +17,17 @@ body {
     letter-spacing: 0.025em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    font-size: 34px;
+}
+
+input,
+textarea,
+select,
+button {
+    font-family: 'Inter', sans-serif;
 }
 
 /* Mindful typography */
@@ -343,8 +354,12 @@ body {
 
 /* Responsive typography */
 @media (max-width: 640px) {
+    html {
+        font-size: 27px;
+    }
+
     body {
-        font-size: 14px;
+        font-size: inherit;
         line-height: 1.6;
     }
 }

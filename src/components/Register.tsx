@@ -4,8 +4,9 @@ import { createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleA
 import { auth, db } from '../config/firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Target, TrendingUp, User } from 'lucide-react';
-
+import { Eye, EyeOff, Sparkles, Heart, Flower2, Star, User } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
+import AppLogo from './AppLogo';
 
 const Register: React.FC = () => {
     const [name, setName] = useState('');
@@ -17,6 +18,7 @@ const Register: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { currentTheme } = useTheme();
 
     const handleEmailRegister = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -155,133 +157,196 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
-            {/* Background */}
-            <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-indigo-950 to-purple-950"></div>
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-blue-500/30 via-indigo-500/20 to-transparent rounded-full filter blur-3xl animate-float opacity-70"></div>
-                <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-radial from-purple-500/30 via-pink-500/20 to-transparent rounded-full filter blur-3xl animate-float-reverse opacity-60"></div>
-                <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-radial from-cyan-500/30 via-blue-500/20 to-transparent rounded-full filter blur-3xl animate-pulse-slow opacity-50"></div>
+        <div className={`min-h-screen relative overflow-hidden flex items-center justify-center p-6 bg-gradient-to-br ${currentTheme.background}`}>
+            {/* Enhanced Background with Zen Elements */}
+            <div className="absolute inset-0 overflow-hidden">
+                {/* Primary gradient background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${currentTheme.gradient}`}></div>
+
+                {/* Floating zen elements */}
+                <div className={`absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-radial ${currentTheme.gradient} rounded-full filter blur-3xl animate-gentle-float opacity-60`}></div>
+                <div className={`absolute bottom-1/4 right-1/6 w-80 h-80 bg-gradient-radial ${currentTheme.gradient} rounded-full filter blur-3xl animate-float-reverse opacity-50`}></div>
+                <div className={`absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-radial ${currentTheme.gradient} rounded-full filter blur-3xl animate-breathe opacity-40`}></div>
+
+                {/* Zen decorative elements */}
+                <div className="absolute top-20 right-20 w-32 h-32 opacity-10">
+                    <Flower2 className={`w-full h-full ${currentTheme.textSecondary} animate-lotus-bloom`} />
+                </div>
+                <div className="absolute bottom-20 left-20 w-24 h-24 opacity-15">
+                    <Star className={`w-full h-full ${currentTheme.textSecondary} animate-zen-pulse`} />
+                </div>
+                <div className="absolute top-1/2 right-10 w-16 h-16 opacity-20">
+                    <Heart className={`w-full h-full ${currentTheme.textSecondary} animate-peaceful-glow`} />
+                </div>
+
+                {/* Ambient particles */}
+                <div className={`absolute top-1/3 left-1/3 w-2 h-2 bg-current rounded-full animate-zen-pulse ${currentTheme.textSecondary}`}></div>
+                <div className={`absolute bottom-1/3 right-1/3 w-3 h-3 bg-current rounded-full animate-breathe ${currentTheme.textSecondary}`}></div>
+                <div className={`absolute top-2/3 left-2/3 w-1.5 h-1.5 bg-current rounded-full animate-gentle-float ${currentTheme.textSecondary}`}></div>
             </div>
 
             <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="w-full max-w-md relative z-10"
+                transition={{
+                    duration: 0.8,
+                    ease: [0.4, 0, 0.2, 1],
+                    staggerChildren: 0.1
+                }}
+                className="w-full max-w-lg relative z-10"
             >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl">
-                    {/* Header */}
-                    <div className="text-center mb-8">
+                <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-3xl p-10 shadow-zen-xl`}>
+                    {/* Zen Header */}
+                    <div className="text-center mb-10">
                         <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="flex items-center justify-center gap-2 mb-4"
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{
+                                duration: 1,
+                                ease: [0.68, -0.55, 0.265, 1.55],
+                                delay: 0.2
+                            }}
+                            className="flex items-center justify-center mb-6"
                         >
-                            <Target className="w-8 h-8 text-blue-400" />
-                            <TrendingUp className="w-8 h-8 text-purple-400" />
+                            <div className="animate-peaceful-glow flex-shrink-0">
+                                <AppLogo size={80} className="drop-shadow-xl" />
+                            </div>
                         </motion.div>
-                        <h1 className="text-3xl font-bold text-white mb-2">Start Your Journey</h1>
-                        <p className="text-gray-200">Create your account to begin tracking goals</p>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className={`text-4xl font-bold bg-gradient-to-r ${currentTheme.gradientText} bg-clip-text text-transparent mb-3 font-handwriting`}
+                        >
+                            Create Your Sanctuary
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className={`${currentTheme.textSecondary} text-lg leading-relaxed`}
+                        >
+                            Begin your mindful journey and blossom with purposeful goals
+                        </motion.p>
                     </div>
 
                     {error && (
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="bg-red-500/20 border border-red-500/30 rounded-lg p-3 mb-6"
+                            initial={{ opacity: 0, x: -30, scale: 0.9 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            className="bg-red-50/80 backdrop-blur-sm border-2 border-red-200/60 rounded-2xl p-4 mb-8 shadow-zen"
                         >
-                            <p className="text-red-300 text-sm">{error}</p>
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center">
+                                    <span className="text-red-500 text-sm">⚠️</span>
+                                </div>
+                                <p className="text-red-600 font-medium">{error}</p>
+                            </div>
                         </motion.div>
                     )}
 
-                    <form onSubmit={handleEmailRegister} className="space-y-6">
+                    <form onSubmit={handleEmailRegister} className="space-y-8">
                         <div>
-                            <label className="block text-white font-medium mb-2">Full Name</label>
-                            <div className="relative">
+                            <label className={`block ${currentTheme.text} font-semibold text-sm tracking-wide mb-2`}>Full Name</label>
+                            <div className="relative group">
                                 <input
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 pl-12 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
+                                    className="w-full bg-white/80 backdrop-blur-sm border-2 border-slate-200/60 rounded-2xl px-5 py-4 pl-14 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-emerald-400/80 focus:ring-4 focus:ring-emerald-200/50 transition-zen group-hover:border-slate-300/80 font-sans"
                                     placeholder="Enter your full name"
                                     required
                                 />
-                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-white font-medium mb-2">Email</label>
+                            <label className={`block ${currentTheme.text} font-semibold text-sm tracking-wide mb-2`}>Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
-                                placeholder="Enter your email"
+                                className="w-full bg-white/80 backdrop-blur-sm border-2 border-slate-200/60 rounded-2xl px-5 py-4 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-emerald-400/80 focus:ring-4 focus:ring-emerald-200/50 transition-zen group-hover:border-slate-300/80 font-sans"
+                                placeholder="Enter your mindful email"
                                 required
                             />
                         </div>
 
                         <div>
-                            <label className="block text-white font-medium mb-2">Password</label>
-                            <div className="relative">
+                            <label className={`block ${currentTheme.text} font-semibold text-sm tracking-wide mb-2`}>Sacred Password</label>
+                            <div className="relative group">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
-                                    placeholder="Create a password"
+                                    className="w-full bg-white/80 backdrop-blur-sm border-2 border-slate-200/60 rounded-2xl px-5 py-4 pr-16 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-emerald-400/80 focus:ring-4 focus:ring-emerald-200/50 transition-zen group-hover:border-slate-300/80 font-sans"
+                                    placeholder="Create a peaceful password"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-xl hover:bg-slate-100/80 transition-zen group"
                                 >
-                                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    {showPassword ? <EyeOff className="w-5 h-5 text-slate-500 group-hover:text-slate-700" /> : <Eye className="w-5 h-5 text-slate-500 group-hover:text-slate-700" />}
                                 </button>
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-white font-medium mb-2">Confirm Password</label>
-                            <div className="relative">
+                            <label className={`block ${currentTheme.text} font-semibold text-sm tracking-wide mb-2`}>Confirm Password</label>
+                            <div className="relative group">
                                 <input
                                     type={showConfirmPassword ? 'text' : 'password'}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
+                                    className="w-full bg-white/80 backdrop-blur-sm border-2 border-slate-200/60 rounded-2xl px-5 py-4 pr-16 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-emerald-400/80 focus:ring-4 focus:ring-emerald-200/50 transition-zen group-hover:border-slate-300/80 font-sans"
                                     placeholder="Confirm your password"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-xl hover:bg-slate-100/80 transition-zen group"
                                 >
-                                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    {showConfirmPassword ? <EyeOff className="w-5 h-5 text-slate-500 group-hover:text-slate-700" /> : <Eye className="w-5 h-5 text-slate-500 group-hover:text-slate-700" />}
                                 </button>
                             </div>
                         </div>
 
                         <motion.button
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.02, y: -2 }}
                             whileTap={{ scale: 0.98 }}
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:cursor-not-allowed"
+                            className={`w-full bg-gradient-to-r ${currentTheme.primary} hover:opacity-90 disabled:opacity-50 text-white font-bold py-5 px-8 rounded-2xl transition-zen-slow disabled:cursor-not-allowed shadow-zen-lg hover:shadow-zen-xl btn-zen group`}
                         >
-                            {loading ? 'Creating Account...' : 'Create Account'}
+                            {loading ? (
+                                <div className="flex items-center gap-3 justify-center">
+                                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                    <span>Creating account...</span>
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-3 justify-center">
+                                    <Sparkles className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                    <span>Blossom Now</span>
+                                    <Heart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                </div>
+                            )}
                         </motion.button>
                     </form>
 
-                    <div className="relative my-6">
+                    <div className="relative my-10">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/20"></div>
+                            <div className="w-full border-t-2 border-gradient-to-r from-transparent via-slate-300/60 to-transparent"></div>
                         </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-transparent text-gray-200">OR</span>
+                        <div className="relative flex justify-center">
+                            <div className="px-6 py-2 bg-white/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-zen">
+                                <span className="text-slate-500 font-medium tracking-wider text-sm">OR</span>
+                            </div>
                         </div>
                     </div>
 
@@ -292,7 +357,7 @@ const Register: React.FC = () => {
                             type="button"
                             onClick={handleGoogleRegister}
                             disabled={loading}
-                            className="w-full bg-white hover:bg-gray-50 disabled:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 border border-gray-300"
+                            className="w-full bg-white hover:bg-gray-50 disabled:bg-gray-100 text-slate-700 font-bold py-5 px-8 rounded-2xl transition-zen-slow disabled:cursor-not-allowed flex items-center justify-center gap-4 border-2 border-slate-200/60 hover:border-slate-300/80 shadow-zen hover:shadow-zen-lg btn-zen group"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -304,16 +369,20 @@ const Register: React.FC = () => {
                         </motion.button>
                     </div>
 
-                    <div className="text-center mt-6">
-                        <p className="text-gray-200">
-                            Already have an account?{' '}
+                    <div className="text-center mt-10">
+                        <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-2xl p-6 shadow-zen`}>
+                            <p className={`${currentTheme.textSecondary} mb-3 font-medium`}>
+                                Already part of this journey?
+                            </p>
                             <Link
                                 to="/login"
-                                className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+                                className={`inline-flex items-center gap-2 bg-gradient-to-r ${currentTheme.gradientText} bg-clip-text text-transparent font-bold transition-zen group hover:scale-105`}
                             >
-                                Sign in
+                                <Sparkles className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                                <span>Return &amp; Sign In</span>
+                                <Heart className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
                             </Link>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </motion.div>
