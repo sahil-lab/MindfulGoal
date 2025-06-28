@@ -14,7 +14,46 @@ const ThemeSelector: React.FC = () => {
         ocean: '🌊',
         sunset: '🌅',
         lavender: '🌸',
-        rose: '��'
+        rose: '🌹',
+        midnight: '🌙',
+        aurora: '🌌',
+        desert: '🏜️',
+        glacier: '🧊',
+        cherry: '🌸',
+        emerald: '💎',
+        cosmic: '✨',
+        golden: '☀️',
+        storm: '⛈️',
+        coral: '🪸',
+        mint: '🌿',
+        sapphire: '💙',
+        ruby: '❤️',
+        lime: '🍋',
+        amethyst: '💜',
+        peach: '🍑',
+        turquoise: '🐚',
+        bronze: '🥉',
+        silver: '🌕',
+        ivory: '🤍',
+        crimson: '🔴',
+        navy: '⚓',
+        jade: '🟢',
+        magenta: '💖',
+        topaz: '💛',
+        onyx: '⚫',
+        aqua: '💧',
+        plum: '🟣',
+        champagne: '🥂',
+        steel: '⚔️',
+        maroon: '🍷',
+        olive: '🫒',
+        indigo: '🔵',
+        rust: '🦀',
+        teal: '🌊',
+        vanilla: '🍦',
+        charcoal: '⚫',
+        blush: '🌺',
+        sage: '🍃'
     };
 
     const updatePosition = () => {
@@ -57,10 +96,10 @@ const ThemeSelector: React.FC = () => {
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500/50
         `}
             >
-                <span className="text-lg">{themeIcons[themeName]}</span>
+                <span className="text-xs">{themeIcons[themeName]}</span>
                 <span className="font-medium whitespace-nowrap">{currentTheme.name}</span>
                 <svg
-                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                    className={`w-2.5 h-2.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -118,7 +157,46 @@ function getThemeDescription(theme: string): string {
         ocean: 'Deep cyan & blue serenity',
         sunset: 'Warm orange & rose glow',
         lavender: 'Dreamy purple elegance',
-        rose: 'Gentle pink & rose beauty'
+        rose: 'Gentle pink & rose beauty',
+        midnight: 'Dark mysterious elegance',
+        aurora: 'Magical northern lights',
+        desert: 'Warm sandy golden tones',
+        glacier: 'Cool icy blue freshness',
+        cherry: 'Delicate blossom pink',
+        emerald: 'Rich forest green luxury',
+        cosmic: 'Deep space purple mystery',
+        golden: 'Bright sunny warmth',
+        storm: 'Dramatic gray power',
+        coral: 'Vibrant reef orange',
+        mint: 'Fresh cool green breeze',
+        sapphire: 'Deep royal blue elegance',
+        ruby: 'Passionate red fire',
+        lime: 'Zesty bright green energy',
+        amethyst: 'Royal purple crystal',
+        peach: 'Soft sunset warmth',
+        turquoise: 'Tropical water blue',
+        bronze: 'Warm metallic glow',
+        silver: 'Cool moonlight shine',
+        ivory: 'Pure creamy elegance',
+        crimson: 'Bold passionate red',
+        navy: 'Classic deep blue',
+        jade: 'Ancient green wisdom',
+        magenta: 'Vibrant pink energy',
+        topaz: 'Golden yellow brilliance',
+        onyx: 'Sleek dark sophistication',
+        aqua: 'Crystal clear freshness',
+        plum: 'Rich velvet purple',
+        champagne: 'Elegant bubbly gold',
+        steel: 'Strong blue metal',
+        maroon: 'Deep wine richness',
+        olive: 'Earthy green peace',
+        indigo: 'Midnight blue depth',
+        rust: 'Warm copper earth',
+        teal: 'Balanced blue-green',
+        vanilla: 'Sweet creamy comfort',
+        charcoal: 'Sophisticated gray',
+        blush: 'Soft romantic pink',
+        sage: 'Wise green serenity'
     };
     return descriptions[theme] || '';
 }

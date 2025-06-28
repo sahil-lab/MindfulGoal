@@ -27,4 +27,34 @@ export interface DayData {
   goals: Goal[];
   totalLoggedHours: number;
   completedGoals: number;
+  checkedIn?: boolean; // Track if user checked in today
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  type: 'streak' | 'goals' | 'time' | 'special';
+  requirement: number;
+  unlockedAt?: string;
+  isUnlocked: boolean;
+}
+
+export interface UserStats {
+  currentStreak: number;
+  longestStreak: number;
+  totalCheckIns: number;
+  totalGoalsCompleted: number;
+  totalTimeLogged: number; // in minutes
+  achievements: Achievement[];
+  lastCheckIn?: string;
+}
+
+export interface TodoItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: string;
+  priority: 'low' | 'medium' | 'high';
 }

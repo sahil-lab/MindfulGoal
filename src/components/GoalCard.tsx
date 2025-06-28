@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Pause, Check, Clock, Target, Trash2, Calendar, Sparkles, TreePine } from 'lucide-react';
+import { Play, Pause, Check, Clock, Target, Trash2, Calendar, Sparkles, TreePine, Plus, Edit3 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { Goal, TimeEntry } from '../types/Goal';
 import { formatTime, generateId, formatDateKey } from '../utils/storage';
@@ -15,6 +15,10 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal, currentDate, onUpdate, onDele
   const { currentTheme } = useTheme();
   const [isTracking, setIsTracking] = useState(false);
   const [currentSession, setCurrentSession] = useState<{ startTime: Date } | null>(null);
+  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [manualHours, setManualHours] = useState('');
+  const [manualMinutes, setManualMinutes] = useState('');
+  const [manualNote, setManualNote] = useState('');
 
   // Safety check for required props
   if (!goal || !currentDate) {
@@ -127,6 +131,39 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal, currentDate, onUpdate, onDele
     if (window.confirm('Are you sure you want to delete this intention? This will remove it from all dates.')) {
       onDelete(goal.id);
     }
+  };
+
+  const addManualTime = () => {
+    const hours = parseInt(manualHours) || 0;
+    const minutes = parseInt(manualMinutes) || 0;
+    const totalMinutes = (hours * 60) + minutes;
+
+    if (totalMinutes <= 0) {
+      alert('Please enter a valid time amount.');
+      return;
+    }
+
+    const now = new Date();
+    const newTimeEntry: TimeEntry = {
+      id: generateId(),
+      date: currentDate,
+      startTime: now.toISOString(),
+      endTime: now.toISOString(),
+      duration: totalMinutes,
+      note: manualNote.trim() || 'Manual entry',
+    };
+
+    const updatedGoal: Goal = {
+      ...goal,
+      loggedHours: goal.loggedHours + (totalMinutes / 60),
+      timeEntries: [...goal.timeEntries, newTimeEntry],
+    };
+
+    onUpdate(updatedGoal);
+    setShowManualEntry(false);
+    setManualHours('');
+    setManualMinutes('');
+    setManualNote('');
   };
 
   const formatDateRange = () => {
@@ -336,9 +373,90 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal, currentDate, onUpdate, onDele
                   </>
                 )}
               </button>
+
+              {!isCompleted && (
+                <button
+                  onClick={() => setShowManualEntry(true)}
+                  className="group px-4 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl bg-white/80 text-slate-600 hover:bg-white hover:text-slate-700 border border-slate-200/60 hover:scale-105"
+                >
+                  <Plus className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                  <span>Add Time</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
+
+        {showManualEntry && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 max-w-md w-full shadow-2xl border border-white/60">
+              <div className="flex items-center gap-3 mb-6">
+                <div className={`w-10 h-10 bg-gradient-to-br ${config.gradient} rounded-xl flex items-center justify-center`}>
+                  <Edit3 className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-800">Add Manual Time</h3>
+                  <p className="text-slate-600 text-sm">Record time spent on this intention</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">Hours</label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="23"
+                      value={manualHours}
+                      onChange={(e) => setManualHours(e.target.value)}
+                      className="w-full bg-white/80 border-2 border-slate-200/60 rounded-xl px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-blue-400/80 focus:ring-4 focus:ring-blue-200/50 transition-all duration-300"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">Minutes</label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="59"
+                      value={manualMinutes}
+                      onChange={(e) => setManualMinutes(e.target.value)}
+                      className="w-full bg-white/80 border-2 border-slate-200/60 rounded-xl px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-blue-400/80 focus:ring-4 focus:ring-blue-200/50 transition-all duration-300"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Note (optional)</label>
+                  <textarea
+                    value={manualNote}
+                    onChange={(e) => setManualNote(e.target.value)}
+                    className="w-full bg-white/80 border-2 border-slate-200/60 rounded-xl px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-blue-400/80 focus:ring-4 focus:ring-blue-200/50 transition-all duration-300 resize-none"
+                    placeholder="What did you work on?"
+                    rows={3}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <button
+                  onClick={() => setShowManualEntry(false)}
+                  className="flex-1 px-4 py-3 bg-slate-100/80 text-slate-600 rounded-xl font-semibold transition-all duration-300 hover:bg-slate-200/80 hover:text-slate-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={addManualTime}
+                  className={`flex-1 px-4 py-3 bg-gradient-to-r ${config.gradient} text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl`}
+                >
+                  Add Time
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   } catch (error) {
