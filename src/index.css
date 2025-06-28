@@ -17,10 +17,14 @@ body {
     letter-spacing: 0.025em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transform: scale(0.85);
+    transform-origin: top left;
+    width: 117.65%;
+    height: 117.65vh;
 }
 
 html {
-    font-size: 34px;
+    font-size: 18px;
 }
 
 input,
@@ -355,12 +359,15 @@ button {
 /* Responsive typography */
 @media (max-width: 640px) {
     html {
-        font-size: 27px;
+        font-size: 16px;
     }
 
     body {
         font-size: inherit;
         line-height: 1.6;
+        transform: scale(0.9);
+        width: 111.11%;
+        height: 111.11vh;
     }
 }
 

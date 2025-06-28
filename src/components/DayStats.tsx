@@ -66,62 +66,59 @@ const DayStats: React.FC<DayStatsProps> = ({ dayData }) => {
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl flex items-center justify-center">
-          <TrendingUp className="w-5 h-5 text-white" />
+      <div className="flex items-center gap-2 mb-4">
+        <div className="w-8 h-8 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg flex items-center justify-center">
+          <TrendingUp className="w-4 h-4 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-slate-800">Today's Journey</h2>
+        <h2 className="text-lg font-bold text-slate-800">Today's Journey</h2>
         <div className="flex-1"></div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl border border-yellow-200">
-          <Sparkles className="w-4 h-4 text-amber-600" />
+        <div className="flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-lg border border-yellow-200">
+          <Sparkles className="w-3 h-3 text-amber-600" />
           <span className="text-sm font-medium text-amber-700">
             {dayData.goals.length > 0 ? 'In progress' : 'Ready to begin'}
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {stats.map((stat, index) => (
           <div
             key={index}
-            className="group relative overflow-hidden bg-white/60 backdrop-blur-sm rounded-2xl border border-white/80 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="group relative overflow-hidden bg-white/60 backdrop-blur-sm rounded-xl border border-white/80 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
           >
-            {/* Background gradient */}
             <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-40`}></div>
 
-            {/* Progress bar background */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/50">
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/50">
               <div
                 className={`h-full bg-gradient-to-r ${stat.gradientFrom} ${stat.gradientTo} transition-all duration-700 ease-out`}
                 style={{ width: `${Math.min(stat.progress, 100)}%` }}
               ></div>
             </div>
 
-            <div className="relative p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-xl shadow-lg ${stat.iconBg} group-hover:scale-110 transition-transform duration-300`}>
-                  <stat.icon className="w-6 h-6 text-white" />
+            <div className="relative p-3">
+              <div className="flex items-start justify-between mb-2">
+                <div className={`p-2 rounded-lg shadow-md ${stat.iconBg} group-hover:scale-110 transition-transform duration-300`}>
+                  <stat.icon className="w-4 h-4 text-white" />
                 </div>
                 <div className="text-right">
-                  <div className={`text-xs font-medium bg-gradient-to-r ${stat.gradientFrom} ${stat.gradientTo} bg-clip-text text-transparent uppercase tracking-wider`}>
+                  <div className={`text-xs font-medium bg-gradient-to-r ${stat.gradientFrom} ${stat.gradientTo} bg-clip-text text-transparent uppercase tracking-wide`}>
                     {stat.label}
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-slate-800 group-hover:text-slate-900 transition-colors">
+              <div className="space-y-1">
+                <div className="text-xl font-bold text-slate-800 group-hover:text-slate-900 transition-colors">
                   {stat.value}
                 </div>
-                <div className="text-sm text-slate-600">
+                <div className="text-xs text-slate-600">
                   {stat.description}
                 </div>
               </div>
 
-              {/* Floating badge for high performers */}
               {stat.progress >= 80 && (
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                  <Sparkles className="w-3 h-3 text-white" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center border border-white shadow-md">
+                  <Sparkles className="w-2 h-2 text-white" />
                 </div>
               )}
             </div>
@@ -129,16 +126,15 @@ const DayStats: React.FC<DayStatsProps> = ({ dayData }) => {
         ))}
       </div>
 
-      {/* Daily inspiration */}
       {dayData.goals.length > 0 && (
-        <div className="mt-8 p-6 bg-gradient-to-r from-slate-50 to-blue-50/50 rounded-2xl border border-slate-200/50">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+        <div className="mt-4 p-3 bg-gradient-to-r from-slate-50 to-blue-50/50 rounded-xl border border-slate-200/50">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-md flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-slate-800">Daily Reflection</h3>
+            <h3 className="text-sm font-semibold text-slate-800">Daily Reflection</h3>
           </div>
-          <p className="text-slate-600 leading-relaxed">
+          <p className="text-xs text-slate-600 leading-relaxed">
             {completionRate === 100
               ? "Perfect! You've achieved all your intentions for today. Take a moment to appreciate your dedication."
               : completionRate >= 75

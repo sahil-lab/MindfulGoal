@@ -164,70 +164,65 @@ function App() {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${currentTheme.background}`}>
-      {/* Background decorative elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br ${currentTheme.gradient} rounded-full blur-3xl animate-gentle-float`}></div>
         <div className={`absolute top-1/3 -left-32 w-64 h-64 bg-gradient-to-br ${currentTheme.gradient} rounded-full blur-3xl animate-float-reverse`}></div>
         <div className={`absolute bottom-20 right-1/4 w-48 h-48 bg-gradient-to-br ${currentTheme.gradient} rounded-full blur-3xl animate-pulse-slow`}></div>
       </div>
 
-      <div className="relative max-w-8xl mx-auto px-6 py-12">
-        {/* Elevated Header with enhanced design */}
-        <div className="mb-16">
-          <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-3xl ${currentTheme.shadow} shadow-xl p-8`}>
+      <div className="relative max-w-7xl mx-auto px-4 py-6">
+        <div className="mb-8">
+          <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-2xl ${currentTheme.shadow} shadow-lg p-4`}>
             <div className="flex flex-col lg:flex-row lg:items-center justify-between">
-              <div className="flex items-center space-x-4 mb-6 lg:mb-0">
+              <div className="flex items-center space-x-3 mb-4 lg:mb-0">
                 <div className="animate-breathe flex-shrink-0">
-                  <AppLogo size={64} className="drop-shadow-lg" />
+                  <AppLogo size={48} className="drop-shadow-lg" />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h1 className={`text-4xl font-bold bg-gradient-to-r ${currentTheme.gradientText} bg-clip-text text-transparent mb-2`}>
+                  <h1 className={`text-2xl font-bold bg-gradient-to-r ${currentTheme.gradientText} bg-clip-text text-transparent mb-1`}>
                     Mindful Goals
                   </h1>
-                  <p className={`${currentTheme.textSecondary} text-lg leading-relaxed`}>
+                  <p className={`${currentTheme.textSecondary} text-sm leading-relaxed`}>
                     Cultivate intention, track progress, find peace in purpose
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                {/* Theme Selector */}
+              <div className="flex items-center gap-2">
                 <ThemeSelector />
 
-                {/* Enhanced User Profile */}
-                <div className={`flex items-center gap-3 px-6 py-3 ${currentTheme.surface} ${currentTheme.border} border rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300`}>
+                <div className={`flex items-center gap-2 px-3 py-2 ${currentTheme.surface} ${currentTheme.border} border rounded-xl shadow-md hover:shadow-lg transition-all duration-300`}>
                   <div className="relative">
                     {user?.photoURL ? (
                       <img
                         src={user.photoURL}
                         alt={user.displayName || 'User'}
-                        className={`w-10 h-10 rounded-full border-2 ${currentTheme.border}`}
+                        className={`w-8 h-8 rounded-full border-2 ${currentTheme.border}`}
                       />
                     ) : (
-                      <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${currentTheme.primary} flex items-center justify-center`}>
-                        <User className="w-6 h-6 text-white" />
+                      <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${currentTheme.primary} flex items-center justify-center`}>
+                        <User className="w-4 h-4 text-white" />
                       </div>
                     )}
-                    <div className={`absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-br ${currentTheme.accent} rounded-full border-2 border-white`}></div>
+                    <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-gradient-to-br ${currentTheme.accent} rounded-full border border-white`}></div>
                   </div>
                   <div>
-                    <p className={`text-sm font-semibold ${currentTheme.text}`}>
+                    <p className={`text-xs font-semibold ${currentTheme.text}`}>
                       {user?.displayName || 'Mindful User'}
                     </p>
                     <p className={`text-xs ${currentTheme.textSecondary}`}>Welcome back</p>
                   </div>
                 </div>
 
-                {/* Enhanced Action Buttons */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowAnalytics(!showAnalytics)}
-                    className={`group px-5 py-3 rounded-2xl border transition-all duration-300 flex items-center gap-2 font-medium ${showAnalytics
+                    className={`group px-3 py-2 rounded-xl border transition-all duration-300 flex items-center gap-1 font-medium text-sm ${showAnalytics
                       ? `bg-gradient-to-r ${currentTheme.secondary} text-white ${currentTheme.border} shadow-lg ${currentTheme.shadow}`
                       : `${currentTheme.surface} ${currentTheme.text} ${currentTheme.border} hover:bg-gradient-to-r hover:${currentTheme.gradient} hover:shadow-lg ${currentTheme.shadow}`
                       }`}
                   >
-                    <BarChart3 className="w-4 h-4" />
+                    <BarChart3 className="w-3 h-3" />
                     <span className="hidden sm:inline">
                       {showAnalytics ? 'Hide Analytics' : 'Analytics'}
                     </span>
@@ -235,12 +230,12 @@ function App() {
 
                   <button
                     onClick={() => setShowCalendar(!showCalendar)}
-                    className={`group px-5 py-3 rounded-2xl border transition-all duration-300 flex items-center gap-2 font-medium ${showCalendar
+                    className={`group px-3 py-2 rounded-xl border transition-all duration-300 flex items-center gap-1 font-medium text-sm ${showCalendar
                       ? `bg-gradient-to-r ${currentTheme.info} text-white ${currentTheme.border} shadow-lg ${currentTheme.shadow}`
                       : `${currentTheme.surface} ${currentTheme.text} ${currentTheme.border} hover:bg-gradient-to-r hover:${currentTheme.gradient} hover:shadow-lg ${currentTheme.shadow}`
                       }`}
                   >
-                    <CalendarIcon className="w-4 h-4" />
+                    <CalendarIcon className="w-3 h-3" />
                     <span className="hidden sm:inline">
                       {showCalendar ? 'Hide Calendar' : 'Calendar'}
                     </span>
@@ -248,18 +243,18 @@ function App() {
 
                   <button
                     onClick={() => setShowGoalForm(true)}
-                    className={`group px-6 py-3 bg-gradient-to-r ${currentTheme.primary} text-white rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg ${currentTheme.shadow} flex items-center gap-2 font-semibold`}
+                    className={`group px-4 py-2 bg-gradient-to-r ${currentTheme.primary} text-white rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg ${currentTheme.shadow} flex items-center gap-1 font-semibold text-sm`}
                   >
-                    <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
                     <span>Create Goal</span>
-                    <Sparkles className="w-4 h-4 opacity-70" />
+                    <Sparkles className="w-3 h-3 opacity-70" />
                   </button>
 
                   <button
                     onClick={handleLogout}
-                    className={`px-4 py-3 ${currentTheme.surface} ${currentTheme.textSecondary} rounded-2xl hover:${currentTheme.text} transition-all duration-300 flex items-center gap-2 border ${currentTheme.border}`}
+                    className={`px-3 py-2 ${currentTheme.surface} ${currentTheme.textSecondary} rounded-xl hover:${currentTheme.text} transition-all duration-300 flex items-center gap-1 border ${currentTheme.border}`}
                   >
-                    <LogOut className="w-4 h-4" />
+                    <LogOut className="w-3 h-3" />
                   </button>
                 </div>
               </div>
@@ -267,37 +262,34 @@ function App() {
           </div>
         </div>
 
-        {/* Analytics Section with enhanced design */}
         {showAnalytics && (
-          <div className="mb-12">
-            <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-3xl shadow-xl ${currentTheme.shadow} p-8`}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className={`w-10 h-10 bg-gradient-to-br ${currentTheme.secondary} rounded-xl flex items-center justify-center animate-gentle-float`}>
-                  <BarChart3 className="w-5 h-5 text-white" />
+          <div className="mb-6">
+            <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-2xl shadow-lg ${currentTheme.shadow} p-4`}>
+              <div className="flex items-center gap-2 mb-4">
+                <div className={`w-8 h-8 bg-gradient-to-br ${currentTheme.secondary} rounded-lg flex items-center justify-center animate-gentle-float`}>
+                  <BarChart3 className="w-4 h-4 text-white" />
                 </div>
-                <h2 className={`text-2xl font-bold ${currentTheme.text}`}>Your Journey Analytics</h2>
+                <h2 className={`text-lg font-bold ${currentTheme.text}`}>Your Journey Analytics</h2>
               </div>
               <PerformanceGraph allData={allData} />
             </div>
           </div>
         )}
 
-        {/* Enhanced Date Header */}
-        <div className="mb-10">
+        <div className="mb-6">
           <div className="text-center">
-            <h2 className={`text-3xl font-bold ${currentTheme.text} mb-2`}>
+            <h2 className={`text-xl font-bold ${currentTheme.text} mb-2`}>
               {formatDisplayDate(selectedDate)}
             </h2>
-            <div className={`w-24 h-1 bg-gradient-to-r ${currentTheme.primary} rounded-full mx-auto animate-mindful-shimmer`}></div>
+            <div className={`w-16 h-0.5 bg-gradient-to-r ${currentTheme.primary} rounded-full mx-auto animate-mindful-shimmer`}></div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-5 gap-8">
-          {/* Enhanced Calendar */}
+        <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
           {showCalendar && (
             <div className="xl:col-span-1">
-              <div className="sticky top-8">
-                <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-3xl shadow-xl ${currentTheme.shadow} p-6`}>
+              <div className="sticky top-4">
+                <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-2xl shadow-lg ${currentTheme.shadow} p-4`}>
                   <Calendar
                     selectedDate={selectedDate}
                     onDateSelect={setSelectedDate}
@@ -308,53 +300,50 @@ function App() {
             </div>
           )}
 
-          {/* Main Content with enhanced spacing */}
-          <div className={`${showCalendar ? 'xl:col-span-4' : 'xl:col-span-5'} space-y-10`}>
-            {/* Enhanced Stats */}
-            <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-3xl shadow-xl ${currentTheme.shadow} p-8`}>
+          <div className={`${showCalendar ? 'xl:col-span-4' : 'xl:col-span-5'} space-y-6`}>
+            <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-2xl shadow-lg ${currentTheme.shadow} p-4`}>
               <DayStats dayData={dayData} />
             </div>
 
-            {/* Enhanced Goals Section */}
-            <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-3xl shadow-xl ${currentTheme.shadow} p-8`}>
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 bg-gradient-to-br ${currentTheme.primary} rounded-xl flex items-center justify-center animate-zen-pulse`}>
-                    <Target className="w-5 h-5 text-white" />
+            <div className={`${currentTheme.surface} ${currentTheme.border} border rounded-2xl shadow-lg ${currentTheme.shadow} p-4`}>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className={`w-8 h-8 bg-gradient-to-br ${currentTheme.primary} rounded-lg flex items-center justify-center animate-zen-pulse`}>
+                    <Target className="w-4 h-4 text-white" />
                   </div>
-                  <h3 className={`text-2xl font-bold ${currentTheme.text}`}>
+                  <h3 className={`text-lg font-bold ${currentTheme.text}`}>
                     Today's Intentions ({dayData.goals.length})
                   </h3>
                 </div>
               </div>
 
               {dayData.goals.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="relative mb-8">
-                    <div className={`w-24 h-24 bg-gradient-to-br ${currentTheme.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 animate-breathe`}>
-                      <div className={`w-16 h-16 bg-gradient-to-br ${currentTheme.primary} rounded-2xl flex items-center justify-center`}>
-                        <Plus className="w-8 h-8 text-white" />
+                <div className="text-center py-8">
+                  <div className="relative mb-4">
+                    <div className={`w-16 h-16 bg-gradient-to-br ${currentTheme.gradient} rounded-2xl flex items-center justify-center mx-auto mb-4 animate-breathe`}>
+                      <div className={`w-12 h-12 bg-gradient-to-br ${currentTheme.primary} rounded-xl flex items-center justify-center`}>
+                        <Plus className="w-6 h-6 text-white" />
                       </div>
                     </div>
-                    <div className={`absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br ${currentTheme.accent} rounded-full flex items-center justify-center mx-auto animate-zen-pulse`}>
-                      <Sparkles className="w-4 h-4 text-white" />
+                    <div className={`absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br ${currentTheme.accent} rounded-full flex items-center justify-center mx-auto animate-zen-pulse`}>
+                      <Sparkles className="w-3 h-3 text-white" />
                     </div>
                   </div>
-                  <h3 className={`text-2xl font-bold ${currentTheme.text} mb-4`}>Your canvas awaits</h3>
-                  <p className={`${currentTheme.textSecondary} text-lg mb-8 max-w-md mx-auto leading-relaxed`}>
+                  <h3 className={`text-lg font-bold ${currentTheme.text} mb-2`}>Your canvas awaits</h3>
+                  <p className={`${currentTheme.textSecondary} text-sm mb-4 max-w-md mx-auto leading-relaxed`}>
                     Begin your mindful journey by setting an intention for today. Every great achievement starts with a single, thoughtful goal.
                   </p>
                   <button
                     onClick={() => setShowGoalForm(true)}
-                    className={`group px-8 py-4 bg-gradient-to-r ${currentTheme.primary} text-white rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${currentTheme.shadow} flex items-center gap-3 mx-auto font-semibold text-lg`}
+                    className={`group px-4 py-2 bg-gradient-to-r ${currentTheme.primary} text-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${currentTheme.shadow} flex items-center gap-2 mx-auto font-semibold text-sm`}
                   >
-                    <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
                     <span>Set Your First Intention</span>
-                    <Sparkles className="w-5 h-5 opacity-70" />
+                    <Sparkles className="w-3 h-3 opacity-70" />
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {dayData.goals.map(goal => (
                     <GoalCard
                       key={goal.id}
@@ -371,7 +360,6 @@ function App() {
         </div>
       </div>
 
-      {/* Enhanced Goal Form Modal */}
       {showGoalForm && (
         <GoalForm
           onSave={handleAddGoal}
