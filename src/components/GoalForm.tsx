@@ -12,7 +12,7 @@ const GoalForm: React.FC<GoalFormProps> = ({ onSave, onCancel, selectedDate }) =
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState<Goal['category']>('personal');
-  const [targetHours, setTargetHours] = useState(1);
+  const [targetHours, setTargetHours] = useState<string>('');
   const [startDate, setStartDate] = useState(selectedDate);
   const [endDate, setEndDate] = useState(selectedDate);
   const [isMultiDay, setIsMultiDay] = useState(false);
@@ -84,11 +84,15 @@ const GoalForm: React.FC<GoalFormProps> = ({ onSave, onCancel, selectedDate }) =
       // Ensure end date is not before start date
       const finalEndDate = new Date(endDate) < new Date(startDate) ? startDate : endDate;
 
+      // Convert the string input to a number, fallback to 0.5 if empty/invalid
+      const parsedHours = parseFloat(targetHours);
+      const finalTargetHours = !isNaN(parsedHours) && parsedHours >= 0.5 ? parsedHours : 0.5;
+
       const goalData = {
         title: title.trim(),
         description: description.trim() || undefined,
         category,
-        targetHours,
+        targetHours: finalTargetHours,
         startDate: isMultiDay ? startDate : selectedDate,
         endDate: isMultiDay ? finalEndDate : selectedDate,
         isMultiDay,
@@ -103,7 +107,7 @@ const GoalForm: React.FC<GoalFormProps> = ({ onSave, onCancel, selectedDate }) =
       setTitle('');
       setDescription('');
       setCategory('personal');
-      setTargetHours(1);
+      setTargetHours('');
       setStartDate(selectedDate);
       setEndDate(selectedDate);
       setIsMultiDay(false);
@@ -256,14 +260,14 @@ const GoalForm: React.FC<GoalFormProps> = ({ onSave, onCancel, selectedDate }) =
                 <input
                   type="number"
                   value={targetHours}
-                  onChange={(e) => setTargetHours(Math.max(0.5, parseFloat(e.target.value) || 1))}
+                  onChange={(e) => setTargetHours(e.target.value)}
                   min="0.5"
                   step="0.5"
                   className="w-full px-4 py-4 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-2xl focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-300 transition-all duration-300 text-slate-800"
                   disabled={isSubmitting}
                 />
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-sm text-slate-500 font-medium">
-                  {targetHours === 1 ? 'hour' : 'hours'}
+                  {parseFloat(targetHours) === 1 ? 'hour' : 'hours'}
                 </div>
               </div>
             </div>
@@ -328,7 +332,7 @@ const GoalForm: React.FC<GoalFormProps> = ({ onSave, onCancel, selectedDate }) =
                     </div>
                     <div className="text-sm text-slate-600 space-y-1">
                       <div><strong>Duration:</strong> {getDayCount()} day{getDayCount() !== 1 ? 's' : ''} of mindful practice</div>
-                      <div><strong>Total commitment:</strong> {(targetHours * getDayCount()).toFixed(1)} hours of intentional time</div>
+                      <div><strong>Total commitment:</strong> {(!isNaN(parseFloat(targetHours)) ? (parseFloat(targetHours) * getDayCount()).toFixed(1) : '0')} hours of intentional time</div>
                     </div>
                   </div>
                 </div>
